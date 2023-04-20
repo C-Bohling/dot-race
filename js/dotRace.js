@@ -198,6 +198,8 @@ const deactivateGame = () => {
     clearInterval(updateInterval);
     document.onkeydown = null;
     document.onkeyup = null;
+    clock.innerHTML = '0:00';
+    timeBar.style.width = '100%';
 }
 
 const getScores = () => {
