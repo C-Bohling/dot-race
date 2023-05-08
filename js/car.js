@@ -61,53 +61,50 @@ class Car {
         return [x, y];
     }
 
-    getFrontLeftCoordinates(center) {
+    _getCornerCoordinates(center, callback) {
         const angleRads = this._currentRotation * (Math.PI / 180);
         const height = this.height;
         const width = this.width;
         const rectAngle = Math.atan2(height / 2, width / 2);
         const rectDiag = Math.sqrt((width / 2) * (width / 2) + (height / 2) * (height / 2));
 
-        return {
-            x: Math.round((center.x - rectDiag * Math.cos(-rectAngle - angleRads)) * 1000) / 1000,
-            y: Math.round((center.y - rectDiag * Math.sin(-rectAngle - angleRads)) * 1000) / 1000
-        };
+        return callback( rectDiag, rectAngle, angleRads );
+    }
+
+    getFrontLeftCoordinates(center) {
+        return this._getCornerCoordinates(center, ( rectDiag, rectAngle, angleRads ) => {
+            return {
+                x: Math.round((center.x - rectDiag * Math.cos(-rectAngle - angleRads)) * 1000) / 1000,
+                y: Math.round((center.y - rectDiag * Math.sin(-rectAngle - angleRads)) * 1000) / 1000
+            };
+        });
     }
 
     getFrontRightCoordinates(center) {
-        const angleRads = this._currentRotation * (Math.PI / 180);
-        const height = this.height;
-        const width = this.width;
-        const rectAngle = Math.atan2(height / 2, width / 2);
-        const rectDiag = Math.sqrt((width / 2) * (width / 2) + (height / 2) * (height / 2));
-        return {
-            x: Math.round((center.x + rectDiag * Math.cos(rectAngle - angleRads)) * 1000) / 1000,
-            y: Math.round((center.y + rectDiag * Math.sin(rectAngle - angleRads)) * 1000) / 1000
-        };
+        return this._getCornerCoordinates(center, ( rectDiag, rectAngle, angleRads ) => {
+            return {
+                x: Math.round((center.x + rectDiag * Math.cos(rectAngle - angleRads)) * 1000) / 1000,
+                y: Math.round((center.y + rectDiag * Math.sin(rectAngle - angleRads)) * 1000) / 1000
+            };
+        });
     }
 
     getBackRightCoordinates(center) {
-        const angleRads = this._currentRotation * (Math.PI / 180);
-        const height = this.height;
-        const width = this.width;
-        const rectAngle = Math.atan2(height / 2, width / 2);
-        const rectDiag = Math.sqrt((width / 2) * (width / 2) + (height / 2) * (height / 2));
-        return {
-            x: Math.round((center.x + rectDiag * Math.cos(-rectAngle - angleRads)) * 1000) / 1000,
-            y: Math.round((center.y + rectDiag * Math.sin(-rectAngle - angleRads)) * 1000) / 1000
-        };
+        return this._getCornerCoordinates(center, ( rectDiag, rectAngle, angleRads ) => {
+            return {
+                x: Math.round((center.x + rectDiag * Math.cos(-rectAngle - angleRads)) * 1000) / 1000,
+                y: Math.round((center.y + rectDiag * Math.sin(-rectAngle - angleRads)) * 1000) / 1000
+            };
+        });
     }
 
     getBackLeftCoordinates(center) {
-        const angleRads = this._currentRotation * (Math.PI / 180);
-        const height = this.height;
-        const width = this.width;
-        const rectAngle = Math.atan2(height / 2, width / 2);
-        const rectDiag = Math.sqrt((width / 2) * (width / 2) + (height / 2) * (height / 2));
-        return {
-            x: Math.round((center.x - rectDiag * Math.cos(rectAngle - angleRads)) * 1000) / 1000,
-            y: Math.round((center.y - rectDiag * Math.sin(rectAngle - angleRads)) * 1000) / 1000
-        };
+        return this._getCornerCoordinates(center, ( rectDiag, rectAngle, angleRads ) => {
+            return {
+                x: Math.round((center.x - rectDiag * Math.cos(rectAngle - angleRads)) * 1000) / 1000,
+                y: Math.round((center.y - rectDiag * Math.sin(rectAngle - angleRads)) * 1000) / 1000
+            };
+        });
     }
 
     getCorners() {
